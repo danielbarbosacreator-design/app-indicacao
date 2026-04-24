@@ -58,7 +58,7 @@ export function SidebarAdmin({ nomeAdmin, leadsNovos = 0 }: SidebarAdminProps) {
         <div className="flex flex-col gap-1">
           <div className="w-32 h-12">
             <img
-              src="/logo.png"
+              src="/assets/logo.svg"
               alt="Auto Excelência Logo"
               className="object-contain w-full h-full"
             />
@@ -136,7 +136,7 @@ export function SidebarAdmin({ nomeAdmin, leadsNovos = 0 }: SidebarAdminProps) {
         <div className="flex items-center gap-2">
           <div className="w-24 h-8">
             <img
-              src="/logo.png"
+              src="/assets/logo.svg"
               alt="Auto Excelência Logo"
               className="object-contain w-full h-full"
             />

@@ -42,7 +42,7 @@ export default function EsqueciSenhaPage() {
         <Link href="/" className="mb-10 block">
           <div className="w-40 h-16 mx-auto">
             <img
-              src="/logo.png"
+              src="/assets/logo.svg"
               alt="Auto Excelência Logo"
               className="object-contain w-full h-full"
             />

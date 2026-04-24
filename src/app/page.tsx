@@ -180,7 +180,7 @@ export default function LandingPage() {
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 flex items-center justify-center">
                   <img
-                    src="/logo.png"
+                    src="/assets/logo.svg"
                     alt="Auto Excelência Logo"
                     className="object-contain w-full h-full"
                   />
@@ -289,7 +289,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 flex items-center justify-center">
                 <img
-                  src="/logo.png"
+                  src="/assets/logo.svg"
                   alt="Auto Excelência Logo"
                   className="object-contain w-full h-full filter brightness-0 invert"
                 />

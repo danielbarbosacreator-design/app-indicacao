@@ -189,7 +189,7 @@ export default function RedefinirSenhaPage() {
       <Link href="/" className="flex items-center gap-2 mb-8">
         <div className="w-10 h-10 flex items-center justify-center">
           <img
-            src="/logo.png"
+            src="/assets/logo.svg"
             alt="Auto Excelência Logo"
             className="object-contain w-full h-full"
           />

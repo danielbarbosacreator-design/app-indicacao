@@ -69,7 +69,7 @@ export default function LoginPage() {
           <Link href="/" className="mb-12 block">
             <div className="w-40 h-16">
               <img
-                src="/logo.png"
+                src="/assets/logo.svg"
                 alt="Auto Excelência Logo"
                 className="object-contain w-full h-full filter brightness-0 invert"
               />
@@ -96,7 +96,7 @@ export default function LoginPage() {
           <Link href="/" className="mb-8 block lg:hidden">
             <div className="w-32 h-12">
               <img
-                src="/logo.png"
+                src="/assets/logo.svg"
                 alt="Auto Excelência Logo"
                 className="object-contain w-full h-full"
               />
