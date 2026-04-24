@@ -48,5 +48,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json({
     valid: true,
     indicador_nome: primeiroNome,
+    indicador_id: indicador.id,
   })
 }
