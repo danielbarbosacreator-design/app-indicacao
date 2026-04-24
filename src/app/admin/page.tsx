@@ -140,7 +140,7 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
         <div className="bg-white rounded-xl border border-gray-100 shadow-card p-4 flex items-center gap-3">
-          <DollarSign size={18} className="text-brand-500 shrink-0" />
+          <DollarSign size={18} className="text-gray-700 shrink-0" />
           <div>
             <p className="text-lg font-bold text-gray-900">{formatCurrency(valorPendente)}</p>
             <p className="text-xs text-gray-500">A pagar</p>
@@ -180,7 +180,7 @@ export default async function AdminDashboardPage() {
         <div className="lg:col-span-3 bg-white rounded-xl border border-gray-100 shadow-card">
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h2 className="text-base font-semibold text-gray-900">Leads recentes</h2>
-            <a href="/admin/leads" className="text-sm text-brand-600 hover:underline">
+            <a href="/admin/leads" className="text-sm text-red-600 hover:underline">
               Ver todos
             </a>
           </div>
@@ -226,7 +226,7 @@ export default async function AdminDashboardPage() {
         <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 shadow-card">
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
             <h2 className="text-base font-semibold text-gray-900">Top indicadores</h2>
-            <a href="/admin/indicadores" className="text-sm text-brand-600 hover:underline">
+            <a href="/admin/indicadores" className="text-sm text-red-600 hover:underline">
               Ver todos
             </a>
           </div>
@@ -293,7 +293,7 @@ export default async function AdminDashboardPage() {
           </div>
           <div>
             <p className="text-xs text-gray-400 mb-0.5">Taxa aprovação</p>
-            <p className="text-lg font-bold text-brand-600">
+            <p className="text-lg font-bold text-red-600">
               {totalLeads && totalLeads > 0
                 ? `${Math.round((((leadsValidados ?? 0) + (leadsConvertidos ?? 0)) / totalLeads) * 100)}%`
                 : '0%'}

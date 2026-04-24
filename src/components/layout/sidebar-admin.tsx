@@ -89,7 +89,7 @@ export function SidebarAdmin({ nomeAdmin, leadsNovos = 0 }: SidebarAdminProps) {
                   className={cn(
                     'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all',
                     active
-                      ? 'bg-brand-600 text-white font-medium'
+                      ? 'bg-black text-white font-medium'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   )}
                 >
@@ -101,7 +101,7 @@ export function SidebarAdmin({ nomeAdmin, leadsNovos = 0 }: SidebarAdminProps) {
                         'inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold',
                         active
                           ? 'bg-white/25 text-white'
-                          : 'bg-brand-600 text-white'
+                          : 'bg-red-600 text-white'
                       )}
                     >
                       {item.badge > 99 ? '99+' : item.badge}
@@ -145,7 +145,7 @@ export function SidebarAdmin({ nomeAdmin, leadsNovos = 0 }: SidebarAdminProps) {
         </div>
         <div className="flex items-center gap-2">
           {leadsNovos > 0 && (
-            <span className="inline-flex items-center justify-center w-5 h-5 bg-brand-600 text-white rounded-full text-xs font-bold">
+            <span className="inline-flex items-center justify-center w-5 h-5 bg-red-600 text-white rounded-full text-xs font-bold">
               {leadsNovos}
             </span>
           )}

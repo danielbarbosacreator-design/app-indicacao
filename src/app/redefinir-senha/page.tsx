@@ -123,7 +123,7 @@ function RedefinirSenhaForm() {
 
       {!sessionReady ? (
         <div className="flex items-center justify-center py-8">
-          <div className="animate-spin w-6 h-6 border-2 border-brand-600 border-t-transparent rounded-full" />
+          <div className="animate-spin w-6 h-6 border-2 border-black border-t-transparent rounded-full" />
           <span className="text-sm text-gray-500 ml-3">Verificando link...</span>
         </div>
       ) : (

@@ -245,7 +245,7 @@ export function PerfilClient({ indicador }: PerfilClientProps) {
               </div>
               <div>
                 <p className="text-xs text-gray-400">Código de indicação</p>
-                <p className="font-mono font-bold text-brand-700">{indicador.referral_code}</p>
+                <p className="font-mono font-bold text-black">{indicador.referral_code}</p>
               </div>
             </div>
 
@@ -259,9 +259,9 @@ export function PerfilClient({ indicador }: PerfilClientProps) {
           </div>
 
           {/* Link de indicação */}
-          <div className="bg-brand-600 rounded-xl p-5 text-white">
-            <p className="text-xs text-brand-200 mb-2 font-medium">Seu link de indicação</p>
-            <p className="text-xs font-mono text-brand-100 break-all mb-3 leading-relaxed">
+          <div className="bg-black rounded-xl p-5 text-white">
+            <p className="text-xs text-gray-300 mb-2 font-medium">Seu link de indicação</p>
+            <p className="text-xs font-mono text-gray-200 break-all mb-3 leading-relaxed">
               {buildReferralLink(indicador.referral_code)}
             </p>
             <button

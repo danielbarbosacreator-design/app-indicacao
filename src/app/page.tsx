@@ -18,25 +18,25 @@ export default function LandingPage() {
       <NavbarPublic />
 
       {/* Hero */}
-      <section className="bg-gradient-to-br from-brand-700 via-brand-600 to-brand-500 text-white">
+      <section className="bg-black text-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 bg-white/15 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
-              <Star size={14} className="text-gold-400 fill-gold-400" />
+              <Star size={14} className="text-red-500 fill-red-500" />
               Programa oficial de indicação
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
               Indique e receba
-              <span className="text-gold-400"> R$ 200</span> por cliente aprovado
+              <span className="text-red-500"> R$ 200</span> por cliente aprovado
             </h1>
-            <p className="text-lg text-brand-100 mb-8 max-w-xl leading-relaxed">
+            <p className="text-lg text-gray-200 mb-8 max-w-xl leading-relaxed">
               Compartilhe seu link exclusivo, acompanhe suas indicações em tempo real e receba
-              <span className="text-gold-400 font-semibold"> R$ 200,00</span> por cada indicação que se tornar cliente da Auto Excelência.
+              <span className="text-red-500 font-semibold"> R$ 200,00</span> por cada indicação que se tornar cliente da Auto Excelência.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/cadastro"
-                className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
               >
                 Quero ser indicador
                 <ChevronRight size={18} />
@@ -53,7 +53,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats bar */}
-      <section className="bg-brand-800 text-white">
+      <section className="bg-black text-white border-t border-white/10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center sm:text-left">
             {[
@@ -62,10 +62,10 @@ export default function LandingPage() {
               { icon: TrendingUp, label: 'Indicações validadas', value: '+3.200' },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-3 justify-center sm:justify-start">
-                <item.icon size={24} className="text-gold-400 shrink-0" />
+                <item.icon size={24} className="text-red-500 shrink-0" />
                 <div>
                   <p className="text-xl font-bold">{item.value}</p>
-                  <p className="text-sm text-brand-200">{item.label}</p>
+                  <p className="text-sm text-gray-300">{item.label}</p>
                 </div>
               </div>
             ))}
@@ -77,7 +77,7 @@ export default function LandingPage() {
       <section id="como-funciona" className="py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-14">
-            <p className="text-sm font-semibold text-gold-600 uppercase tracking-wide mb-2">
+            <p className="text-sm font-semibold text-red-700 uppercase tracking-wide mb-2">
               Simples e transparente
             </p>
             <h2 className="text-3xl font-bold text-gray-900">Como funciona o programa</h2>
@@ -114,10 +114,10 @@ export default function LandingPage() {
               <div key={item.step} className="relative">
                 <div className="bg-white rounded-xl border border-gray-100 shadow-card p-8">
                   <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center shrink-0">
-                      <item.icon size={22} className="text-gold-600" />
+                    <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center shrink-0">
+                      <item.icon size={22} className="text-red-600" />
                     </div>
-                    <span className="text-4xl font-black text-gray-100 leading-none">
+                    <span className="text-4xl font-black text-red-100 leading-none">
                       {item.step}
                     </span>
                   </div>
@@ -135,7 +135,7 @@ export default function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div>
-              <p className="text-sm font-semibold text-gold-600 uppercase tracking-wide mb-2">
+              <p className="text-sm font-semibold text-red-700 uppercase tracking-wide mb-2">
                 Vantagens
               </p>
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
@@ -166,7 +166,7 @@ export default function LandingPage() {
                   },
                 ].map((item) => (
                   <li key={item.title} className="flex gap-3">
-                    <CheckCircle size={20} className="text-green-500 shrink-0 mt-0.5" />
+                    <CheckCircle size={20} className="text-red-600 shrink-0 mt-0.5" />
                     <div>
                       <p className="font-semibold text-gray-900 text-sm">{item.title}</p>
                       <p className="text-gray-500 text-sm mt-0.5">{item.desc}</p>
@@ -194,8 +194,8 @@ export default function LandingPage() {
               <div className="space-y-4">
                 <div className="bg-gray-50 rounded-lg p-4">
                   <p className="text-xs text-gray-500 mb-1">Seu link exclusivo</p>
-                  <p className="text-sm font-mono text-brand-700 break-all">
-                    autoexcelencia.com.br/indique/<span className="text-gold-600">SEU_CODIGO</span>
+                  <p className="text-sm font-mono text-black break-all">
+                    autoexcelencia.com.br/indique/<span className="text-red-700">SEU_CODIGO</span>
                   </p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -266,15 +266,15 @@ export default function LandingPage() {
       </section>
 
       {/* CTA final */}
-      <section className="py-20 bg-brand-600">
+      <section className="py-20 bg-red-600">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-white">
           <h2 className="text-3xl font-bold mb-4">Pronto para começar a indicar?</h2>
-          <p className="text-brand-100 mb-8 max-w-md mx-auto">
+          <p className="text-red-100 mb-8 max-w-md mx-auto">
             Crie sua conta agora e comece a compartilhar seu link exclusivo hoje mesmo.
           </p>
           <Link
             href="/cadastro"
-            className="inline-flex items-center gap-2 bg-gold-500 hover:bg-gold-600 text-white font-semibold px-8 py-4 rounded-lg transition-colors text-base"
+            className="inline-flex items-center gap-2 bg-black hover:bg-black text-white font-semibold px-8 py-4 rounded-lg transition-colors text-base"
           >
             Criar minha conta gratuitamente
             <ChevronRight size={18} />
@@ -283,7 +283,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-brand-800 text-brand-200 py-10">
+      <footer className="bg-black text-gray-300 py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">

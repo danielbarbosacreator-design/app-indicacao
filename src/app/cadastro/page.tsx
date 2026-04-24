@@ -138,7 +138,7 @@ export default function CadastroPage() {
           </p>
           <p className="text-xs text-gray-400">Verifique também a caixa de spam.</p>
           <div className="mt-6">
-            <Link href="/login" className="text-sm text-brand-600 hover:underline font-medium">
+            <Link href="/login" className="text-sm text-red-600 hover:underline font-medium">
               Já confirmei — ir para o login
             </Link>
           </div>
@@ -150,7 +150,7 @@ export default function CadastroPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Painel lateral (desktop) */}
-      <div className="hidden lg:flex w-96 bg-brand-700 flex-col justify-between p-10 text-white">
+      <div className="hidden lg:flex w-96 bg-black flex-col justify-between p-10 text-white">
         <div>
           <Link href="/" className="mb-12 block">
             <div className="w-40 h-16">
@@ -162,7 +162,7 @@ export default function CadastroPage() {
             </div>
           </Link>
           <h2 className="text-2xl font-bold mb-3">Crie sua conta</h2>
-          <p className="text-brand-200 text-sm leading-relaxed mb-8">
+          <p className="text-gray-300 text-sm leading-relaxed mb-8">
             Cadastre-se gratuitamente e comece a indicar hoje mesmo. Receba{' '}
             <span className="text-white font-semibold text-base">R$ 200,00</span> por cada cliente
             aprovado.
@@ -174,17 +174,17 @@ export default function CadastroPage() {
               'Painel completo para acompanhar indicações',
               'Receba via Pix',
             ].map((item) => (
-              <li key={item} className="flex items-center gap-2 text-sm text-brand-100">
-                <CheckCircle size={16} className="text-gold-400 shrink-0" />
+              <li key={item} className="flex items-center gap-2 text-sm text-gray-200">
+                <CheckCircle size={16} className="text-red-500 shrink-0" />
                 {item}
               </li>
             ))}
           </ul>
         </div>
         <div className="bg-white/10 rounded-xl p-5">
-          <Shield size={24} className="text-gold-400 mb-3" />
+          <Shield size={24} className="text-red-500 mb-3" />
           <p className="text-sm font-medium mb-1">Seus dados estão seguros</p>
-          <p className="text-xs text-brand-200">
+          <p className="text-xs text-gray-300">
             Todas as informações são criptografadas e protegidas conforme a LGPD.
           </p>
         </div>
@@ -206,7 +206,7 @@ export default function CadastroPage() {
           <h1 className="text-2xl font-bold text-gray-900 mb-1">Criar conta de indicador</h1>
           <p className="text-gray-500 text-sm mb-6">
             Já tem conta?{' '}
-            <Link href="/login" className="text-brand-600 font-medium hover:underline">
+            <Link href="/login" className="text-red-600 font-medium hover:underline">
               Entrar
             </Link>
           </p>
@@ -365,11 +365,11 @@ export default function CadastroPage() {
 
             <p className="text-xs text-gray-400 text-center">
               Ao criar sua conta, você concorda com os{' '}
-              <a href="/termos" className="text-brand-600 hover:underline">
+              <a href="/termos" className="text-red-600 hover:underline">
                 Termos de Uso
               </a>{' '}
               e a{' '}
-              <a href="/privacidade" className="text-brand-600 hover:underline">
+              <a href="/privacidade" className="text-red-600 hover:underline">
                 Política de Privacidade
               </a>
               .

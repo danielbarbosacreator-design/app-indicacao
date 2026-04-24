@@ -215,7 +215,7 @@ export function AdminLeadsClient({ leads: initialData }: AdminLeadsClientProps) 
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-black"
         >
           <option value="">Todos os status</option>
           {STATUS_OPTIONS.map((s) => (
@@ -225,7 +225,7 @@ export function AdminLeadsClient({ leads: initialData }: AdminLeadsClientProps) 
         <select
           value={filterIndicador}
           onChange={(e) => setFilterIndicador(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-black"
         >
           <option value="">Todos os indicadores</option>
           {indicadores.map((ind) => (
@@ -291,7 +291,7 @@ export function AdminLeadsClient({ leads: initialData }: AdminLeadsClientProps) 
                     <td className="px-6 py-4">
                       <button
                         onClick={() => openModal(lead)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-gray-50 transition-colors"
                       >
                         <Eye size={16} />
                       </button>
@@ -372,7 +372,7 @@ export function AdminLeadsClient({ leads: initialData }: AdminLeadsClientProps) 
               </div>
               <div>
                 <p className="text-xs text-gray-500">Código</p>
-                <p className="text-sm font-mono text-brand-600">{selectedLead.referral_code || '—'}</p>
+                <p className="text-sm font-mono text-red-600">{selectedLead.referral_code || '—'}</p>
               </div>
             </div>
 

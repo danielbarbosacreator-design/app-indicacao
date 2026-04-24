@@ -142,7 +142,7 @@ export default function LeadCapturePage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <div className="animate-spin w-8 h-8 border-2 border-brand-600 border-t-transparent rounded-full" />
+          <div className="animate-spin w-8 h-8 border-2 border-black border-t-transparent rounded-full" />
           <p className="text-sm text-gray-500">Verificando link de indicação...</p>
         </div>
       </div>
@@ -211,7 +211,7 @@ export default function LeadCapturePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-brand-700 text-white">
+      <header className="bg-black text-white">
         <div className="max-w-2xl mx-auto px-4 py-6">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
@@ -221,7 +221,7 @@ export default function LeadCapturePage() {
           </div>
           <h1 className="text-xl font-bold mb-1">Solicitar proteção veicular</h1>
           {indicadorNome && (
-            <p className="text-sm text-brand-200">
+            <p className="text-sm text-gray-300">
               Indicado por: <span className="text-white font-medium">{indicadorNome}</span>
             </p>
           )}
@@ -235,9 +235,9 @@ export default function LeadCapturePage() {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-colors shrink-0 ${
                     etapa > step.n
-                      ? 'bg-gold-500 text-white'
+                      ? 'bg-red-600 text-white'
                       : etapa === step.n
-                      ? 'bg-white text-brand-700'
+                      ? 'bg-white text-black'
                       : 'bg-white/20 text-white/50'
                   }`}
                 >
@@ -253,7 +253,7 @@ export default function LeadCapturePage() {
                 {idx < steps.length - 1 && (
                   <div
                     className={`hidden sm:block flex-1 h-px w-10 ${
-                      etapa > step.n ? 'bg-gold-400' : 'bg-white/20'
+                      etapa > step.n ? 'bg-red-500' : 'bg-white/20'
                     }`}
                   />
                 )}
@@ -413,7 +413,7 @@ export default function LeadCapturePage() {
             {/* Resumo dados pessoais */}
             <div className="bg-gray-50 rounded-xl p-5 mb-4">
               <div className="flex items-center gap-2 mb-4">
-                <User size={16} className="text-brand-600" />
+                <User size={16} className="text-red-600" />
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Dados pessoais
                 </p>
@@ -439,7 +439,7 @@ export default function LeadCapturePage() {
               <button
                 type="button"
                 onClick={() => setEtapa(1)}
-                className="text-xs text-brand-600 hover:underline mt-3"
+                className="text-xs text-red-600 hover:underline mt-3"
               >
                 Editar dados pessoais
               </button>
@@ -448,7 +448,7 @@ export default function LeadCapturePage() {
             {/* Resumo dados do veículo */}
             <div className="bg-gray-50 rounded-xl p-5 mb-6">
               <div className="flex items-center gap-2 mb-4">
-                <Car size={16} className="text-brand-600" />
+                <Car size={16} className="text-red-600" />
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                   Veículo
                 </p>
@@ -482,7 +482,7 @@ export default function LeadCapturePage() {
               <button
                 type="button"
                 onClick={() => setEtapa(2)}
-                className="text-xs text-brand-600 hover:underline mt-3"
+                className="text-xs text-red-600 hover:underline mt-3"
               >
                 Editar dados do veículo
               </button>
@@ -519,7 +519,7 @@ export default function LeadCapturePage() {
 
         <p className="text-center text-xs text-gray-400 mt-6">
           Seus dados são protegidos conforme a LGPD.{' '}
-          <a href="/privacidade" className="text-brand-600 hover:underline">
+          <a href="/privacidade" className="text-red-600 hover:underline">
             Política de privacidade
           </a>
         </p>

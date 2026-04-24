@@ -68,7 +68,7 @@ export function SidebarIndicador({ nomeUsuario, emailUsuario }: SidebarIndicador
                   className={cn(
                     'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all',
                     active
-                      ? 'bg-brand-600 text-white font-medium'
+                      ? 'bg-black text-white font-medium'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                   )}
                 >

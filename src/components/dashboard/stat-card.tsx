@@ -19,8 +19,8 @@ export function StatCard({ title, value, subtitle, icon, variant = 'default' }: 
       value: 'text-gray-900',
     },
     primary: {
-      bg: 'bg-brand-600',
-      iconBg: 'bg-brand-500',
+      bg: 'bg-black',
+      iconBg: 'bg-gray-800',
       iconText: 'text-white',
       value: 'text-white',
     },
@@ -56,7 +56,7 @@ export function StatCard({ title, value, subtitle, icon, variant = 'default' }: 
         <p
           className={cn(
             'text-sm font-medium',
-            variant === 'primary' ? 'text-brand-100' : 'text-gray-500'
+            variant === 'primary' ? 'text-gray-200' : 'text-gray-500'
           )}
         >
           {title}
@@ -66,7 +66,7 @@ export function StatCard({ title, value, subtitle, icon, variant = 'default' }: 
           <p
             className={cn(
               'text-xs mt-1.5',
-              variant === 'primary' ? 'text-brand-200' : 'text-gray-400'
+              variant === 'primary' ? 'text-gray-300' : 'text-gray-400'
             )}
           >
             {subtitle}

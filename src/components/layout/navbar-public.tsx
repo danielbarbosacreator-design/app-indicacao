@@ -24,13 +24,13 @@ export function NavbarPublic() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#como-funciona" className="text-sm text-gray-600 hover:text-brand-600 transition-colors">
+            <a href="#como-funciona" className="text-sm text-gray-600 hover:text-red-600 transition-colors">
               Como funciona
             </a>
-            <a href="#beneficios" className="text-sm text-gray-600 hover:text-brand-600 transition-colors">
+            <a href="#beneficios" className="text-sm text-gray-600 hover:text-red-600 transition-colors">
               Benefícios
             </a>
-            <a href="#faq" className="text-sm text-gray-600 hover:text-brand-600 transition-colors">
+            <a href="#faq" className="text-sm text-gray-600 hover:text-red-600 transition-colors">
               Dúvidas
             </a>
           </nav>
@@ -60,21 +60,21 @@ export function NavbarPublic() {
         <div className="md:hidden border-t border-gray-100 bg-white px-4 py-4 space-y-3">
           <a
             href="#como-funciona"
-            className="block text-sm text-gray-600 hover:text-brand-600 py-2"
+            className="block text-sm text-gray-600 hover:text-red-600 py-2"
             onClick={() => setMenuOpen(false)}
           >
             Como funciona
           </a>
           <a
             href="#beneficios"
-            className="block text-sm text-gray-600 hover:text-brand-600 py-2"
+            className="block text-sm text-gray-600 hover:text-red-600 py-2"
             onClick={() => setMenuOpen(false)}
           >
             Benefícios
           </a>
           <a
             href="#faq"
-            className="block text-sm text-gray-600 hover:text-brand-600 py-2"
+            className="block text-sm text-gray-600 hover:text-red-600 py-2"
             onClick={() => setMenuOpen(false)}
           >
             Dúvidas

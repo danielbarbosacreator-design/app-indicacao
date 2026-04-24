@@ -64,7 +64,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex">
       {/* Painel lateral (desktop) */}
-      <div className="hidden lg:flex w-96 bg-brand-700 flex-col justify-between p-10 text-white">
+      <div className="hidden lg:flex w-96 bg-black flex-col justify-between p-10 text-white">
         <div>
           <Link href="/" className="mb-12 block">
             <div className="w-40 h-16">
@@ -76,14 +76,14 @@ export default function LoginPage() {
             </div>
           </Link>
           <h2 className="text-2xl font-bold mb-3">Bem-vindo de volta</h2>
-          <p className="text-brand-200 text-sm leading-relaxed">
+          <p className="text-gray-300 text-sm leading-relaxed">
             Acesse sua conta para acompanhar suas indicações e gerenciar seus ganhos.
           </p>
         </div>
         <div className="bg-white/10 rounded-xl p-5">
-          <Shield size={24} className="text-gold-400 mb-3" />
+          <Shield size={24} className="text-red-500 mb-3" />
           <p className="text-sm font-medium mb-1">Programa seguro e confiável</p>
-          <p className="text-xs text-brand-200">
+          <p className="text-xs text-gray-300">
             Suas informações são protegidas e suas indicações são rastreadas com precisão.
           </p>
         </div>
@@ -106,7 +106,7 @@ export default function LoginPage() {
           <h1 className="text-2xl font-bold text-gray-900 mb-1">Entrar na conta</h1>
           <p className="text-gray-500 text-sm mb-8">
             Não tem conta?{' '}
-            <Link href="/cadastro" className="text-brand-600 font-medium hover:underline">
+            <Link href="/cadastro" className="text-red-600 font-medium hover:underline">
               Cadastre-se gratuitamente
             </Link>
           </p>
@@ -186,7 +186,7 @@ export default function LoginPage() {
             <div className="flex items-center justify-end">
               <Link
                 href="/esqueci-senha"
-                className="text-sm text-brand-600 hover:underline font-medium"
+                className="text-sm text-red-600 hover:underline font-medium"
               >
                 Esqueci minha senha
               </Link>

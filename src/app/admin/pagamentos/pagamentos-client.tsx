@@ -232,7 +232,7 @@ export function AdminPagamentosClient({ pagamentos: initialData }: AdminPagament
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-black"
         >
           <option value="">Todos os status</option>
           {STATUS_OPTIONS.map((s) => (
@@ -301,7 +301,7 @@ export function AdminPagamentosClient({ pagamentos: initialData }: AdminPagament
                     <td className="px-6 py-4">
                       <button
                         onClick={() => openModal(p)}
-                        className="p-1.5 rounded-lg text-gray-400 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                        className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-gray-50 transition-colors"
                       >
                         <Eye size={16} />
                       </button>
@@ -370,7 +370,7 @@ export function AdminPagamentosClient({ pagamentos: initialData }: AdminPagament
                   step="0.01"
                   value={editValor}
                   onChange={(e) => setEditValor(e.target.value)}
-                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -379,7 +379,7 @@ export function AdminPagamentosClient({ pagamentos: initialData }: AdminPagament
                   type="date"
                   value={editDataPrevista}
                   onChange={(e) => setEditDataPrevista(e.target.value)}
-                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
                 />
               </div>
             </div>

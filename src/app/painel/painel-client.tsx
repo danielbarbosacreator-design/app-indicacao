@@ -95,8 +95,8 @@ export function PainelIndicadorClient({
       </div>
 
       {/* Link card */}
-      <div className="bg-brand-700 rounded-xl p-6 text-white mb-8">
-        <p className="text-sm text-brand-200 font-medium mb-1">Seu link exclusivo de indicação</p>
+      <div className="bg-black rounded-xl p-6 text-white mb-8">
+        <p className="text-sm text-gray-300 font-medium mb-1">Seu link exclusivo de indicação</p>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
           <div className="flex-1 bg-white/15 rounded-lg px-4 py-2.5 font-mono text-sm break-all">
             {referralLink}
@@ -121,7 +121,7 @@ export function PainelIndicadorClient({
             </Button>
           </div>
         </div>
-        <p className="text-xs text-brand-200 mt-3">
+        <p className="text-xs text-gray-300 mt-3">
           Compartilhe este link e cada pessoa que se cadastrar será vinculada automaticamente a você.
         </p>
       </div>
@@ -184,7 +184,7 @@ export function PainelIndicadorClient({
             <h2 className="text-base font-semibold text-gray-900">Indicações recentes</h2>
             <p className="text-xs text-gray-400 mt-0.5">Últimas indicações geradas pelo seu link</p>
           </div>
-          <a href="/painel/indicacoes" className="text-sm text-brand-600 hover:underline flex items-center gap-1">
+          <a href="/painel/indicacoes" className="text-sm text-red-600 hover:underline flex items-center gap-1">
             Ver todas
             <ExternalLink size={12} />
           </a>

@@ -154,16 +154,16 @@ export default function TermosPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-100 flex flex-wrap gap-4 text-sm">
-          <Link href="/" className="text-brand-600 hover:underline">
+          <Link href="/" className="text-red-600 hover:underline">
             ← Voltar para a página inicial
           </Link>
-          <Link href="/privacidade" className="text-brand-600 hover:underline">
+          <Link href="/privacidade" className="text-red-600 hover:underline">
             Política de Privacidade →
           </Link>
         </div>
       </main>
 
-      <footer className="bg-brand-800 text-brand-200 py-8 mt-8">
+      <footer className="bg-black text-gray-300 py-8 mt-8">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center text-xs">
           © {new Date().getFullYear()} Auto Excelência. Todos os direitos reservados.
         </div>

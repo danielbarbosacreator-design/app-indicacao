@@ -165,7 +165,7 @@ export function AdminIndicadoresClient({ indicadores: initialData }: AdminIndica
         <select
           value={selectedStatus}
           onChange={(e) => setSelectedStatus(e.target.value)}
-          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-500"
+          className="rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-black"
         >
           <option value="">Todos os status</option>
           <option value="ativo">Ativo</option>
@@ -227,14 +227,14 @@ export function AdminIndicadoresClient({ indicadores: initialData }: AdminIndica
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => openDetail(ind)}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                          className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-gray-50 transition-colors"
                           title="Ver detalhes"
                         >
                           <Eye size={16} />
                         </button>
                         <button
                           onClick={() => copyLink(ind.referral_code)}
-                          className="p-1.5 rounded-lg text-gray-400 hover:text-brand-600 hover:bg-brand-50 transition-colors"
+                          className="p-1.5 rounded-lg text-gray-400 hover:text-red-600 hover:bg-gray-50 transition-colors"
                           title="Copiar link"
                         >
                           <Copy size={16} />
@@ -316,7 +316,7 @@ export function AdminIndicadoresClient({ indicadores: initialData }: AdminIndica
 
             <div className="bg-gray-50 rounded-lg p-3">
               <p className="text-xs text-gray-500 mb-1">Link de indicação</p>
-              <p className="text-xs font-mono text-brand-700 break-all">
+              <p className="text-xs font-mono text-black break-all">
                 {buildReferralLink(selectedIndicador.referral_code)}
               </p>
             </div>
