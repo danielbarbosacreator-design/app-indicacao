@@ -131,7 +131,12 @@ export default function CadastroPage() {
         clearTimeout(timeout)
         setServerError('Provedor Google não configurado. Entre em contato com o suporte.')
         setGoogleLoading(false)
+        return
       }
+
+      // Redirecionar para a URL do Google OAuth
+      clearTimeout(timeout)
+      window.location.href = data.url
     } catch (err) {
       clearTimeout(timeout)
       setServerError('Erro inesperado ao conectar com Google.')

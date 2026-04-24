@@ -79,12 +79,16 @@ export default function LoginPage() {
         return
       }
 
-      // Se não redirecionar automaticamente em 3s, cancela o loading
       if (!data?.url) {
         clearTimeout(timeout)
         setServerError('Provedor Google não configurado. Entre em contato com o suporte.')
         setGoogleLoading(false)
+        return
       }
+
+      // Redirecionar para a URL do Google OAuth
+      clearTimeout(timeout)
+      window.location.href = data.url
     } catch (err) {
       clearTimeout(timeout)
       setServerError('Erro inesperado ao conectar com Google.')
