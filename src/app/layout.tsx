@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     default: 'Auto Excelência — Programa de Indicação',
   },
   description:
-    'Indique amigos e clientes para a Auto Excelência e ganhe por cada indicação aprovada. Proteção veicular de excelência.',
+    'Indique amigos e associados para a Auto Excelência e ganhe por cada indicação aprovada. Proteção veicular de excelência.',
   keywords: ['proteção veicular', 'indicação', 'auto excelência', 'programa de indicação'],
 }
 

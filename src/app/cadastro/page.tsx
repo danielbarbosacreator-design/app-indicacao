@@ -164,7 +164,7 @@ export default function CadastroPage() {
           <h2 className="text-2xl font-bold mb-3">Crie sua conta</h2>
           <p className="text-gray-300 text-sm leading-relaxed mb-8">
             Cadastre-se gratuitamente e comece a indicar hoje mesmo. Receba{' '}
-            <span className="text-white font-semibold text-base">R$ 200,00</span> por cada cliente
+            <span className="text-white font-semibold text-base">R$ 200,00</span> por cada associado
             aprovado.
           </p>
           <ul className="space-y-3">

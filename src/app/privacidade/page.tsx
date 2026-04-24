@@ -32,7 +32,7 @@ export default function PrivacidadePage() {
             <ul className="list-disc pl-5 mt-2 space-y-1">
               <li><strong>Dados de cadastro:</strong> nome completo, e-mail, CPF, telefone/WhatsApp.</li>
               <li><strong>Dados de pagamento:</strong> tipo e chave Pix, nome do banco — usados exclusivamente para repasse de comissões.</li>
-              <li><strong>Dados de indicação:</strong> nome, CPF e telefone dos clientes indicados, fornecidos voluntariamente pelo indicador.</li>
+              <li><strong>Dados de indicação:</strong> nome, CPF e telefone dos associados indicados, fornecidos voluntariamente pelo indicador.</li>
               <li><strong>Dados de acesso:</strong> registros de autenticação gerenciados pelo Supabase Auth.</li>
             </ul>
           </section>

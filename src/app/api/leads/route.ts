@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     const data = parsed.data
     const supabase = await createClient()
 
-    // Checar duplicidade no servidor (não confiamos na checagem do cliente)
+    // Checar duplicidade no servidor (não confiamos na checagem do associado)
     const { data: existing } = await supabase
       .from('leads')
       .select('id')

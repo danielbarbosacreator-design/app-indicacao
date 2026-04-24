@@ -23,7 +23,7 @@ function RedefinirSenhaForm() {
 
   useEffect(() => {
     // O Supabase envia um hash fragment com o token de recuperação
-    // O SSR não pode ler #hash, então precisamos processar no cliente
+    // O SSR não pode ler #hash, então precisamos processar no associado
     const hash = window.location.hash
     if (hash) {
       const params = new URLSearchParams(hash.replace('#', ''))
