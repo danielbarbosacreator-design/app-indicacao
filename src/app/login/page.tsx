@@ -91,7 +91,8 @@ export default function LoginPage() {
       window.location.href = data.url
     } catch (err) {
       clearTimeout(timeout)
-      setServerError('Erro inesperado ao conectar com Google.')
+      const msg = err instanceof Error ? err.message : String(err)
+      setServerError('Erro Google: ' + msg)
       setGoogleLoading(false)
       console.error('[Google OAuth] catch:', err)
     }

@@ -103,6 +103,13 @@ export default function CadastroPage() {
     setGoogleLoading(true)
     setServerError('')
 
+    // Verificar variáveis de ambiente
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      setServerError('Configuração do servidor incompleta. Contate o suporte.')
+      setGoogleLoading(false)
+      return
+    }
+
     const timeout = setTimeout(() => {
       setGoogleLoading(false)
       setServerError('Não foi possível conectar com o Google. Verifique sua conexão e tente novamente.')
@@ -129,7 +136,7 @@ export default function CadastroPage() {
 
       if (!data?.url) {
         clearTimeout(timeout)
-        setServerError('Provedor Google não configurado. Entre em contato com o suporte.')
+        setServerError('Provedor Google não configurado no Supabase. Verifique o painel do Supabase.')
         setGoogleLoading(false)
         return
       }
@@ -139,7 +146,8 @@ export default function CadastroPage() {
       window.location.href = data.url
     } catch (err) {
       clearTimeout(timeout)
-      setServerError('Erro inesperado ao conectar com Google.')
+      const msg = err instanceof Error ? err.message : String(err)
+      setServerError('Erro Google: ' + msg)
       setGoogleLoading(false)
       console.error('[Google OAuth] catch:', err)
     }
