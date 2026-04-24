@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+
+# env files (NUNCA commitar credenciais)
+.env
+.env.local
+.env*.local
+
+# debug
+npm-debug.log*
+
+# typescript
+tsconfig.tsbuildinfo
+
+# misc
+.DS_Store
+
+# credenciais OAuth (nunca commitar)
+client_secret*.json
