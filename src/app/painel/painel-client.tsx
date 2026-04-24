@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { OnboardingModal } from '@/components/onboarding/OnboardingModal'
 import {
   Copy,
   Share2,
@@ -59,6 +60,10 @@ export function PainelIndicadorClient({
   const { toasts, toast, removeToast } = useToast()
   const [copied, setCopied] = useState(false)
 
+  // Show onboarding if phone or PIX is missing
+  const needsOnboarding = !indicador.telefone || !indicador.pix_chave
+  const [showOnboarding, setShowOnboarding] = useState(needsOnboarding)
+
   const referralLink = buildReferralLink(indicador.referral_code)
 
   async function handleCopyLink() {
@@ -83,6 +88,14 @@ export function PainelIndicadorClient({
   return (
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
+
+      {/* Onboarding modal — shown when phone or PIX is missing */}
+      {showOnboarding && (
+        <OnboardingModal
+          indicador={indicador}
+          onComplete={() => setShowOnboarding(false)}
+        />
+      )}
 
       {/* Header */}
       <div className="mb-8">
