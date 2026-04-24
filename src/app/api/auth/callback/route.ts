@@ -25,20 +25,38 @@ export async function GET(request: NextRequest) {
       }
     )
 
+    console.log('Iniciando exchangeCodeForSession...')
     const { data, error } = await supabase.auth.exchangeCodeForSession(code)
 
-    if (!error && data.user) {
-      // Verificar se é admin
-      const { data: admin } = await supabase
-        .from('administradores')
-        .select('id')
-        .eq('auth_user_id', data.user.id)
-        .single()
+    if (error) {
+      console.error('Erro no exchangeCodeForSession:', error)
+      return NextResponse.redirect(`${origin}/login?error=exchange_error`)
+    }
 
-      const redirectTo = admin ? '/admin' : '/painel'
-      return NextResponse.redirect(`${origin}${redirectTo}`)
+    if (data.user) {
+      console.log('Usuário autenticado:', data.user.email)
+      // Verificar se é admin
+      try {
+        const { data: admin, error: adminError } = await supabase
+          .from('administradores')
+          .select('id')
+          .eq('auth_user_id', data.user.id)
+          .single()
+        
+        if (adminError && adminError.code !== 'PGRST116') {
+          console.error('Erro ao consultar administradores:', adminError)
+        }
+
+        const redirectTo = admin ? '/admin' : '/painel'
+        console.log('Redirecionando para:', redirectTo)
+        return NextResponse.redirect(`${origin}${redirectTo}`)
+      } catch (err) {
+        console.error('Erro inesperado na verificação de admin:', err)
+        return NextResponse.redirect(`${origin}/painel`)
+      }
     }
   }
 
+  console.warn('Callback falhou: sem código ou usuário')
   return NextResponse.redirect(`${origin}/login?error=auth_callback_failed`)
 }
