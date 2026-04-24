@@ -13,8 +13,8 @@ create table public.indicadores (
   auth_user_id  uuid unique references auth.users(id) on delete cascade,
   nome          text not null,
   email         text not null unique,
-  telefone      text not null,
-  cpf           text not null unique,
+  telefone      text,           -- nullable: usuários Google preenchem depois
+  cpf           text,           -- nullable: usuários Google preenchem depois
   pix_tipo      text check (pix_tipo in ('cpf','cnpj','email','telefone','chave_aleatoria')),
   pix_chave     text,
   banco         text,
@@ -25,6 +25,10 @@ create table public.indicadores (
   created_at    timestamptz not null default now(),
   updated_at    timestamptz not null default now()
 );
+
+-- Índice único parcial para CPF (ignora NULL e string vazia)
+create unique index idx_indicadores_cpf_unique on public.indicadores (cpf)
+  where cpf is not null and cpf <> '';
 
 -- =====================================================
 -- TABELA: administradores
@@ -245,7 +249,17 @@ returns trigger language plpgsql security definer as $$
 declare
   v_referral_code text;
   v_base_url text := 'https://autoexcelencia.com.br';
+  v_provider text;
+  v_telefone text;
+  v_cpf text;
 begin
+  -- Detectar o provider (Google preenche em raw_app_meta_data)
+  v_provider := coalesce(
+    new.raw_user_meta_data->>'provider',
+    new.raw_app_meta_data->>'provider',
+    'email'
+  );
+
   -- Gerar código único de 8 caracteres
   loop
     v_referral_code := upper(substring(md5(random()::text) from 1 for 8));
@@ -253,6 +267,15 @@ begin
       select 1 from public.indicadores where referral_code = v_referral_code
     );
   end loop;
+
+  -- Para usuários Google, CPF e telefone ficam NULL (preenchidos depois no perfil)
+  if v_provider = 'google' then
+    v_telefone := null;
+    v_cpf := null;
+  else
+    v_telefone := nullif(coalesce(new.raw_user_meta_data->>'phone', ''), '');
+    v_cpf := nullif(coalesce(new.raw_user_meta_data->>'cpf', ''), '');
+  end if;
 
   -- Inserir indicador (dados básicos; complementados no cadastro)
   insert into public.indicadores (
@@ -268,11 +291,11 @@ begin
     new.id,
     coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)),
     new.email,
-    coalesce(new.raw_user_meta_data->>'phone', ''),
-    coalesce(new.raw_user_meta_data->>'cpf', ''),
+    v_telefone,
+    v_cpf,
     v_referral_code,
     v_base_url || '/indique/' || v_referral_code,
-    coalesce(new.raw_user_meta_data->>'provider', 'email')
+    v_provider
   )
   on conflict (auth_user_id) do nothing;
 

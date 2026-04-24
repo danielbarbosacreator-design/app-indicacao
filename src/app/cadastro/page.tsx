@@ -101,13 +101,43 @@ export default function CadastroPage() {
 
   async function handleGoogleLogin() {
     setGoogleLoading(true)
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
-      },
-    })
+    setServerError('')
+
+    const timeout = setTimeout(() => {
+      setGoogleLoading(false)
+      setServerError('Não foi possível conectar com o Google. Verifique sua conexão e tente novamente.')
+    }, 10000)
+
+    try {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/api/auth/callback`,
+        },
+      })
+
+      console.log('[Google OAuth] data:', data)
+      console.log('[Google OAuth] error:', error)
+
+      if (error) {
+        clearTimeout(timeout)
+        setServerError('Erro ao autenticar com Google: ' + error.message)
+        setGoogleLoading(false)
+        return
+      }
+
+      if (!data?.url) {
+        clearTimeout(timeout)
+        setServerError('Provedor Google não configurado. Entre em contato com o suporte.')
+        setGoogleLoading(false)
+      }
+    } catch (err) {
+      clearTimeout(timeout)
+      setServerError('Erro inesperado ao conectar com Google.')
+      setGoogleLoading(false)
+      console.error('[Google OAuth] catch:', err)
+    }
   }
 
   if (successState === 'redirect') {

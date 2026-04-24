@@ -52,13 +52,45 @@ export default function LoginPage() {
 
   async function handleGoogleLogin() {
     setGoogleLoading(true)
-    const supabase = createClient()
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/api/auth/callback`,
-      },
-    })
+    setServerError('')
+
+    // Timeout de segurança: se em 10s não redirecionar, mostra erro
+    const timeout = setTimeout(() => {
+      setGoogleLoading(false)
+      setServerError('Não foi possível conectar com o Google. Verifique sua conexão e tente novamente.')
+    }, 10000)
+
+    try {
+      const supabase = createClient()
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/api/auth/callback`,
+        },
+      })
+
+      console.log('[Google OAuth] data:', data)
+      console.log('[Google OAuth] error:', error)
+
+      if (error) {
+        clearTimeout(timeout)
+        setServerError('Erro ao autenticar com Google: ' + error.message)
+        setGoogleLoading(false)
+        return
+      }
+
+      // Se não redirecionar automaticamente em 3s, cancela o loading
+      if (!data?.url) {
+        clearTimeout(timeout)
+        setServerError('Provedor Google não configurado. Entre em contato com o suporte.')
+        setGoogleLoading(false)
+      }
+    } catch (err) {
+      clearTimeout(timeout)
+      setServerError('Erro inesperado ao conectar com Google.')
+      setGoogleLoading(false)
+      console.error('[Google OAuth] catch:', err)
+    }
   }
 
   return (
