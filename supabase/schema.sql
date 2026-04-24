@@ -1,4 +1,4 @@
--- =====================================================
+ -- =====================================================
 -- AUTO EXCELÊNCIA — SCHEMA DO BANCO DE DADOS
 -- =====================================================
 
@@ -7,16 +7,14 @@ create extension if not exists "uuid-ossp";
 
 -- =====================================================
 -- TABELA: indicadores
--- cpf e telefone são nullable para suportar Google OAuth
--- (usuário preenche dados no perfil após primeiro acesso)
 -- =====================================================
 create table public.indicadores (
   id            uuid primary key default uuid_generate_v4(),
   auth_user_id  uuid unique references auth.users(id) on delete cascade,
   nome          text not null,
   email         text not null unique,
-  telefone      text,
-  cpf           text unique,
+  telefone      text not null,
+  cpf           text not null unique,
   pix_tipo      text check (pix_tipo in ('cpf','cnpj','email','telefone','chave_aleatoria')),
   pix_chave     text,
   banco         text,
@@ -56,11 +54,6 @@ create table public.cliques_indicacao (
 
 -- =====================================================
 -- TABELA: leads
--- UNIQUE em cpf e email para evitar duplicatas no banco
--- Migração: antes de aplicar em banco existente, execute:
---   DELETE FROM leads WHERE id NOT IN (
---     SELECT DISTINCT ON (cpf) id FROM leads ORDER BY cpf, created_at
---   );
 -- =====================================================
 create table public.leads (
   id              uuid primary key default uuid_generate_v4(),
@@ -68,9 +61,9 @@ create table public.leads (
   referral_code   text,
   -- Dados pessoais
   nome            text not null,
-  cpf             text not null unique,
+  cpf             text not null,
   telefone        text not null,
-  email           text not null unique,
+  email           text not null,
   -- Dados do veículo
   marca_veiculo   text,
   modelo_veiculo  text,
@@ -90,12 +83,11 @@ create table public.leads (
 
 -- =====================================================
 -- TABELA: pagamentos
--- UNIQUE em lead_id evita pagamentos duplicados por lead
 -- =====================================================
 create table public.pagamentos (
   id               uuid primary key default uuid_generate_v4(),
   indicador_id     uuid not null references public.indicadores(id) on delete cascade,
-  lead_id          uuid unique references public.leads(id) on delete set null,
+  lead_id          uuid references public.leads(id) on delete set null,
   valor            numeric(10,2) not null default 0,
   status_pagamento text not null default 'nao_elegivel' check (status_pagamento in (
     'nao_elegivel','elegivel','em_processamento','pago','cancelado'
@@ -246,34 +238,14 @@ create policy "logs_insert_authenticated" on public.logs_sistema
 
 -- =====================================================
 -- FUNÇÃO: criar indicador após signup
--- Suporta tanto email/senha quanto Google OAuth.
--- Para Google, cpf e telefone ficam null e o usuário
--- preenche no perfil no primeiro acesso.
--- A URL base é lida da configuração do banco (app.base_url).
--- Para definir: ALTER DATABASE postgres SET app.base_url = 'https://seu-dominio.com';
+-- Chamada pelo trigger em auth.users
 -- =====================================================
 create or replace function public.handle_new_user()
 returns trigger language plpgsql security definer as $$
 declare
   v_referral_code text;
-  v_base_url text;
-  v_cpf text;
-  v_telefone text;
-  v_provider text;
+  v_base_url text := 'https://autoexcelencia.com.br';
 begin
-  -- URL base configurável por ambiente
-  v_base_url := coalesce(
-    nullif(current_setting('app.base_url', true), ''),
-    'https://autoexcelencia.com.br'
-  );
-
-  -- Normalizar provider
-  v_provider := coalesce(new.raw_user_meta_data->>'provider', 'email');
-
-  -- CPF e telefone: null para Google (usuário preenche no perfil)
-  v_cpf     := nullif(trim(coalesce(new.raw_user_meta_data->>'cpf', '')), '');
-  v_telefone := nullif(trim(coalesce(new.raw_user_meta_data->>'phone', '')), '');
-
   -- Gerar código único de 8 caracteres
   loop
     v_referral_code := upper(substring(md5(random()::text) from 1 for 8));
@@ -282,6 +254,7 @@ begin
     );
   end loop;
 
+  -- Inserir indicador (dados básicos; complementados no cadastro)
   insert into public.indicadores (
     auth_user_id,
     nome,
@@ -295,11 +268,11 @@ begin
     new.id,
     coalesce(new.raw_user_meta_data->>'full_name', split_part(new.email, '@', 1)),
     new.email,
-    v_telefone,
-    v_cpf,
+    coalesce(new.raw_user_meta_data->>'phone', ''),
+    coalesce(new.raw_user_meta_data->>'cpf', ''),
     v_referral_code,
     v_base_url || '/indique/' || v_referral_code,
-    v_provider
+    coalesce(new.raw_user_meta_data->>'provider', 'email')
   )
   on conflict (auth_user_id) do nothing;
 
