@@ -37,7 +37,7 @@ export function SidebarIndicador({ nomeUsuario, emailUsuario }: SidebarIndicador
         <div className="flex flex-col gap-1">
           <div className="w-32 h-12">
             <img
-              src="/assets/logo.svg"
+              src="/assets/logo.png"
               alt="Auto Excelência Logo"
               className="object-contain w-full h-full"
             />
@@ -106,7 +106,7 @@ export function SidebarIndicador({ nomeUsuario, emailUsuario }: SidebarIndicador
         <div className="flex items-center gap-2">
           <div className="w-24 h-8">
             <img
-              src="/assets/logo.svg"
+              src="/assets/logo.png"
               alt="Auto Excelência Logo"
               className="object-contain w-full h-full"
             />

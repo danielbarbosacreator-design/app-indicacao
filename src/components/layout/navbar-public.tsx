@@ -15,7 +15,7 @@ export function NavbarPublic() {
           <Link href="/" className="flex items-center">
             <div className="relative w-32 h-12">
               <img
-                src="/assets/logo.svg"
+                src="/assets/logo.png"
                 alt="Auto Excelência Logo"
                 className="object-contain w-full h-full"
               />
