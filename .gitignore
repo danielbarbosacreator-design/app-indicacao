@@ -21,3 +21,4 @@ tsconfig.tsbuildinfo
 
 # credenciais OAuth (nunca commitar)
 client_secret*.json
+.vercel

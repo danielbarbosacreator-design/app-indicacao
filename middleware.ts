@@ -2,70 +2,65 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return NextResponse.next()
+  }
+
   let supabaseResponse = NextResponse.next({ request })
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          )
-          supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options as Parameters<typeof supabaseResponse.cookies.set>[2])
-          )
-        },
+  const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll()
       },
-    }
-  )
+      setAll(cookiesToSet: { name: string; value: string; options?: Record<string, unknown> }[]) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        supabaseResponse = NextResponse.next({ request })
+        cookiesToSet.forEach(({ name, value, options }) =>
+          supabaseResponse.cookies.set(name, value, options as Parameters<typeof supabaseResponse.cookies.set>[2])
+        )
+      },
+    },
+  })
 
-  const { data: { user } } = await supabase.auth.getUser()
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+    const { pathname } = request.nextUrl
 
-  const { pathname } = request.nextUrl
-
-  // Rotas protegidas do indicador
-  if (pathname.startsWith('/painel')) {
-    if (!user) {
+    if (pathname.startsWith('/painel') && !user) {
       return NextResponse.redirect(new URL('/login', request.url))
     }
-  }
 
-  // Rotas protegidas do admin
-  if (pathname.startsWith('/admin')) {
-    if (!user) {
-      return NextResponse.redirect(new URL('/login', request.url))
+    if (pathname.startsWith('/admin')) {
+      if (!user) {
+        return NextResponse.redirect(new URL('/login', request.url))
+      }
+
+      const { data: admin } = await supabase
+        .from('administradores')
+        .select('id')
+        .eq('auth_user_id', user.id)
+        .single()
+
+      if (!admin) {
+        return NextResponse.redirect(new URL('/painel', request.url))
+      }
     }
-    // Verificar se é admin
-    const { data: admin } = await supabase
-      .from('administradores')
-      .select('id')
-      .eq('auth_user_id', user.id)
-      .single()
 
-    if (!admin) {
-      return NextResponse.redirect(new URL('/painel', request.url))
+    if ((pathname === '/login' || pathname === '/cadastro') && user) {
+      const { data: admin } = await supabase
+        .from('administradores')
+        .select('id')
+        .eq('auth_user_id', user.id)
+        .single()
+
+      return NextResponse.redirect(new URL(admin ? '/admin' : '/painel', request.url))
     }
-  }
-
-  // Redirecionar usuário logado para fora das páginas de auth
-  if ((pathname === '/login' || pathname === '/cadastro') && user) {
-    // Verificar se é admin para redirecionar corretamente
-    const { data: admin } = await supabase
-      .from('administradores')
-      .select('id')
-      .eq('auth_user_id', user.id)
-      .single()
-
-    if (admin) {
-      return NextResponse.redirect(new URL('/admin', request.url))
-    }
-    return NextResponse.redirect(new URL('/painel', request.url))
+  } catch {
+    return NextResponse.next()
   }
 
   return supabaseResponse
