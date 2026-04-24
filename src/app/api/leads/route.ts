@@ -17,11 +17,11 @@ export async function POST(request: Request) {
     const data = parsed.data
     const supabase = await createClient()
 
-    // Checar duplicidade no servidor (não confiamos na checagem do associado)
+    // Checar duplicidade em referral_leads
     const { data: existing } = await supabase
-      .from('leads')
+      .from('referral_leads')
       .select('id')
-      .or(`cpf.eq.${data.cpf},email.eq.${data.email},telefone.eq.${data.telefone}`)
+      .or(`email.eq.${data.email},phone.eq.${data.telefone}`)
       .limit(1)
       .maybeSingle()
 
@@ -32,38 +32,44 @@ export async function POST(request: Request) {
       )
     }
 
-    // Buscar indicador pelo referral_code
-    let indicadorId: string | null = null
+    // Buscar indicador pelo referral_code em indicators
+    let indicatorId: string | null = null
     if (body.referral_code) {
-      const { data: indicador } = await supabase
-        .from('indicadores')
+      const { data: indicator } = await supabase
+        .from('indicators')
         .select('id')
         .eq('referral_code', body.referral_code)
-        .eq('status', 'ativo')
         .single()
-      indicadorId = indicador?.id ?? null
+      indicatorId = indicator?.id ?? null
     }
 
     const { data: lead, error } = await supabase
-      .from('leads')
+      .from('referral_leads')
       .insert({
-        indicador_id: indicadorId,
-        referral_code: body.referral_code ?? null,
-        ...data,
+        indicator_id: indicatorId,
+        full_name: data.nome,
+        email: data.email,
+        phone: data.telefone,
+        vehicle_type: data.marca_veiculo, -- mapeando marca como tipo no exemplo
+        vehicle_model: data.modelo_veiculo,
+        vehicle_year: data.ano_veiculo,
+        vehicle_plate: data.placa || null,
+        notes: `Estado: ${data.estado}, Cidade: ${data.cidade}`,
+        status: 'lead_cadastrado'
       })
       .select()
       .single()
 
     if (error) {
-      // Violação de unique constraint (inserção concorrente)
-      if (error.code === '23505') {
-        return NextResponse.json(
-          { error: 'Já existe um cadastro com esses dados.' },
-          { status: 409 }
-        )
-      }
       return NextResponse.json({ error: 'Erro ao registrar lead.' }, { status: 500 })
     }
+
+    // Registrar o evento de lead_cadastrado
+    await supabase.from('referral_events').insert({
+      indicator_id: indicatorId,
+      lead_id: lead.id,
+      event_type: 'lead_cadastrado'
+    })
 
     return NextResponse.json({ success: true, lead }, { status: 201 })
   } catch {

@@ -12,8 +12,8 @@ export async function GET(request: NextRequest) {
   const supabase = await createClient()
 
   const { data: indicador } = await supabase
-    .from('indicadores')
-    .select('id, nome, status')
+    .from('indicators')
+    .select('id, name, status')
     .eq('referral_code', code)
     .single()
 
@@ -32,18 +32,20 @@ export async function GET(request: NextRequest) {
     const ua = request.headers.get('user-agent') || ''
     const device = /mobile|android|iphone|ipad/i.test(ua) ? 'mobile' : 'desktop'
 
-    await supabase.from('cliques_indicacao').insert({
-      indicador_id: indicador.id,
-      referral_code: code,
-      ip,
-      device,
-      user_agent: ua || null,
-      source: request.headers.get('referer') || null,
+    await supabase.from('referral_events').insert({
+      indicator_id: indicador.id,
+      event_type: 'visita_link',
+      metadata: {
+        ip,
+        device,
+        user_agent: ua || null,
+        source: request.headers.get('referer') || null,
+      }
     })
   }
 
   // Expõe apenas o primeiro nome por privacidade
-  const primeiroNome = indicador.nome.split(' ')[0]
+  const primeiroNome = indicador.name.split(' ')[0]
 
   return NextResponse.json({
     valid: true,

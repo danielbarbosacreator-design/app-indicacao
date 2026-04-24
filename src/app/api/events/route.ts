@@ -23,23 +23,21 @@ export async function POST(request: Request) {
 
     const supabase = await createClient()
 
-    // Se tiver lead_id, buscar o indicador_id automaticamente
-    let resolvedIndicadorId = indicador_id ?? null
-    if (lead_id && !resolvedIndicadorId) {
+    // Se tiver lead_id, buscar o indicator_id automaticamente se não fornecido
+    let resolvedIndicatorId = indicador_id ?? null
+    if (lead_id && !resolvedIndicatorId) {
       const { data: lead } = await supabase
-        .from('leads')
-        .select('indicador_id')
+        .from('referral_leads')
+        .select('indicator_id')
         .eq('id', lead_id)
         .single()
-      resolvedIndicadorId = lead?.indicador_id ?? null
+      resolvedIndicatorId = lead?.indicator_id ?? null
     }
 
-    await supabase.from('logs_sistema').insert({
-      usuario_tipo: 'sistema',
-      acao: event_type,
-      entidade: lead_id ? 'lead' : 'indicador',
-      entidade_id: lead_id ?? resolvedIndicadorId ?? null,
-      descricao: `Evento: ${event_type}`,
+    await supabase.from('referral_events').insert({
+      indicator_id: resolvedIndicatorId,
+      lead_id: lead_id ?? null,
+      event_type: event_type,
       metadata: metadata ?? null,
     })
 

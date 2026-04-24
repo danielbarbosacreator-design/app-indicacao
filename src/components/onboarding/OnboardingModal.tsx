@@ -56,11 +56,11 @@ export function OnboardingModal({ indicador, onComplete }: OnboardingModalProps)
       const supabase = createClient()
       const { data: { user } } = await supabase.auth.getUser()
       const { error } = await supabase
-        .from('indicadores')
+        .from('indicators')
         .update({
-          telefone: telefone.replace(/\D/g, ''),
-          pix_tipo: pixTipo,
-          pix_chave: pixChave.trim(),
+          phone: telefone.replace(/\D/g, ''),
+          pix_key: pixChave.trim(),
+          bank_name: '(Definido no onboarding)',
         })
         .eq('auth_user_id', user!.id)
 
