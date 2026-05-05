@@ -23,13 +23,17 @@ export type AuthProvider = 'email' | 'google'
 export interface Indicador {
   id: string
   auth_user_id: string
-  name: string
+  nome: string
   email: string
-  phone: string | null
-  pix_key: string | null
-  bank_name: string | null
+  telefone: string | null
+  cpf: string | null
+  pix_tipo: PixTipo | null
+  pix_chave: string | null
+  banco: string | null
   referral_code: string
   referral_link: string
+  status: StatusIndicador
+  auth_provider: AuthProvider
   created_at: string
   updated_at: string
 }
@@ -45,18 +49,21 @@ export interface IndicadorResumo extends Indicador {
 
 export interface Lead {
   id: string
-  indicator_id: string | null
-  full_name: string
-  email: string | null
-  phone: string
-  vehicle_type: string | null
-  vehicle_model: string | null
-  vehicle_year: string | null
-  vehicle_plate: string | null
-  notes: string | null
-  status: string
-  whatsapp_clicked: boolean
-  confirmed_as_associate: boolean
+  indicador_id: string | null
+  referral_code: string | null
+  nome: string
+  cpf: string
+  telefone: string
+  email: string
+  marca_veiculo: string | null
+  modelo_veiculo: string | null
+  ano_veiculo: string | null
+  placa: string | null
+  cidade: string | null
+  estado: string | null
+  status_lead: StatusLead
+  observacoes: string | null
+  duplicado_de: string | null
   created_at: string
   updated_at: string
 }
