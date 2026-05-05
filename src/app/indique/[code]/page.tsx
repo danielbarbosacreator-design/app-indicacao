@@ -140,21 +140,21 @@ export default function IndicacaoLandingPage() {
 
   async function handleEtapa1(data: LeadEtapa1Input) {
     setError('')
-    setEtapa1Data({ ...data, cpf: data.cpf.replace(/\D/g, ''), telefone: data.telefone.replace(/\D/g, '') })
+    setEtapa1Data(data)
     setEtapa(2)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    formRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   function handleEtapa2(data: LeadEtapa2Input) {
     setError('')
     setEtapa2Data(data)
     setEtapa(3)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    formRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   function handleEtapa3() {
     setEtapa(4)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    formRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
 
   function toggleServico(id: string) {
@@ -309,7 +309,7 @@ export default function IndicacaoLandingPage() {
   }
 
   // ── FORM STEPS (modal-like overlay when triggered) ──────
-  const isFormActive = etapa === 2 || etapa === 3 || (etapa === 1 && form1.formState.isSubmitted)
+  const isFormActive = etapa >= 2 || (etapa === 1 && form1.formState.isSubmitted)
 
   const steps = [
     { n: 1, label: 'Dados pessoais', icon: User },
