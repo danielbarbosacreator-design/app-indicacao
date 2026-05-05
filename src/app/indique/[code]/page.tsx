@@ -41,7 +41,52 @@ const ANOS = Array.from({ length: 40 }, (_, i) => {
   return { value: String(year), label: String(year) }
 })
 
-type Etapa = 1 | 2 | 3
+const SERVICOS_ADICIONAIS = [
+  {
+    id: 'alagamento',
+    title: 'Alagamento',
+    price: 'R$ 15,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+  {
+    id: 'guincho',
+    title: 'guincho de 1000 km',
+    price: 'R$ 19,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+  {
+    id: 'terceiros',
+    title: 'Terceiros até R$ 300.000,00',
+    price: 'R$ 19,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+  {
+    id: 'carro_7',
+    title: 'Carro assistencial 7 dias',
+    price: 'R$ 9,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+  {
+    id: 'carro_15',
+    title: 'Carro assistencial 15 dias',
+    price: 'R$ 15,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+  {
+    id: 'vidros',
+    title: '100% vidros/farol/retrovisor/lanterna nacional',
+    price: 'R$ 19,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+  {
+    id: 'fipe_leilao',
+    title: 'Indenização 100% FIPE (veículos com leilão ou sinistro)',
+    price: 'R$ 39,90',
+    desc: 'Proteção adicional para seu veículo.',
+  },
+]
+
+type Etapa = 1 | 2 | 3 | 4
 
 export default function IndicacaoLandingPage() {
   const params = useParams<{ code: string }>()
@@ -56,6 +101,7 @@ export default function IndicacaoLandingPage() {
   const [etapa, setEtapa] = useState<Etapa>(1)
   const [etapa1Data, setEtapa1Data] = useState<LeadEtapa1Input | null>(null)
   const [etapa2Data, setEtapa2Data] = useState<LeadEtapa2Input | null>(null)
+  const [servicosSelecionados, setServicosSelecionados] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
   const [leadId, setLeadId] = useState<string | null>(null)
@@ -106,6 +152,17 @@ export default function IndicacaoLandingPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  function handleEtapa3() {
+    setEtapa(4)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function toggleServico(id: string) {
+    setServicosSelecionados((prev) =>
+      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+    )
+  }
+
   async function handleConfirm() {
     if (!etapa1Data || !etapa2Data) return
     setSubmitting(true)
@@ -126,6 +183,9 @@ export default function IndicacaoLandingPage() {
           placa: etapa2Data.placa || null,
           cidade: etapa2Data.cidade,
           estado: etapa2Data.estado,
+          servicos_adicionais: servicosSelecionados.map(
+            (id) => SERVICOS_ADICIONAIS.find((s) => s.id === id)?.title
+          ),
         }),
       })
 
@@ -254,7 +314,8 @@ export default function IndicacaoLandingPage() {
   const steps = [
     { n: 1, label: 'Dados pessoais', icon: User },
     { n: 2, label: 'Veículo', icon: Car },
-    { n: 3, label: 'Confirmação', icon: CheckCircle },
+    { n: 3, label: 'Serviços', icon: Zap },
+    { n: 4, label: 'Confirmação', icon: CheckCircle },
   ]
 
   return (
@@ -636,8 +697,60 @@ export default function IndicacaoLandingPage() {
               </>
             )}
 
-            {/* ETAPA 3: Confirmação */}
-            {etapa === 3 && etapa1Data && etapa2Data && (
+            {/* ETAPA 3: Serviços Adicionais */}
+            {etapa === 3 && (
+              <>
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">Serviços Adicionais</h3>
+                <p className="text-sm text-gray-500 mb-6">Selecione as proteções extras para seu veículo.</p>
+                
+                <div className="space-y-3 mb-8">
+                  {SERVICOS_ADICIONAIS.map((servico) => {
+                    const isSelected = servicosSelecionados.includes(servico.id)
+                    return (
+                      <div
+                        key={servico.id}
+                        onClick={() => toggleServico(servico.id)}
+                        className={`group relative flex items-center justify-between p-4 rounded-2xl border transition-all cursor-pointer ${
+                          isSelected 
+                            ? 'bg-red-50/50 border-red-200 shadow-sm' 
+                            : 'bg-white border-gray-100 hover:border-gray-200 hover:bg-gray-50/30'
+                        }`}
+                      >
+                        <div className="flex-1 pr-4">
+                          <h4 className="text-sm font-bold text-gray-900 mb-0.5">{servico.title}</h4>
+                          <p className="text-[11px] text-gray-500 leading-tight">{servico.desc}</p>
+                        </div>
+                        
+                        <div className="flex flex-col items-end gap-1.5">
+                          <span className="text-xs font-bold text-gray-900">{servico.price}</span>
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${
+                            isSelected ? 'bg-red-600 border-red-600' : 'border-gray-200'
+                          }`}>
+                            {isSelected && <CheckCircle size={12} className="text-white" />}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="flex justify-between pt-2">
+                  <button
+                    type="button"
+                    onClick={() => setEtapa(2)}
+                    className="flex items-center gap-1.5 text-sm font-semibold text-gray-500 hover:text-gray-900 transition-colors"
+                  >
+                    <ChevronLeft size={16} /> Voltar
+                  </button>
+                  <Button onClick={handleEtapa3}>
+                    Continuar <ChevronRight size={16} />
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {/* ETAPA 4: Confirmação */}
+            {etapa === 4 && etapa1Data && etapa2Data && (
               <>
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">Revise e confirme</h3>
                 <p className="text-sm text-gray-500 mb-6">Confira seus dados antes de enviar.</p>
@@ -670,6 +783,29 @@ export default function IndicacaoLandingPage() {
                   <button type="button" onClick={() => setEtapa(2)} className="text-xs text-red-600 hover:underline mt-3">Editar dados do veículo</button>
                 </div>
 
+                <div className="bg-gray-50 rounded-xl p-4 sm:p-5 mb-5">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Zap size={14} className="text-red-600" />
+                    <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Serviços Adicionais</p>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    {servicosSelecionados.length > 0 ? (
+                      servicosSelecionados.map(id => {
+                        const s = SERVICOS_ADICIONAIS.find(item => item.id === id)
+                        return (
+                          <div key={id} className="flex justify-between items-center bg-white px-3 py-2 rounded-lg border border-gray-100">
+                            <span className="font-medium text-gray-900">{s?.title}</span>
+                            <span className="text-xs font-bold text-red-600">{s?.price}</span>
+                          </div>
+                        )
+                      })
+                    ) : (
+                      <p className="text-gray-400 italic">Nenhum serviço extra selecionado</p>
+                    )}
+                  </div>
+                  <button type="button" onClick={() => setEtapa(3)} className="text-xs text-red-600 hover:underline mt-3">Editar serviços</button>
+                </div>
+
                 {error && (
                   <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-3 mb-4">{error}</div>
                 )}
@@ -679,7 +815,7 @@ export default function IndicacaoLandingPage() {
                 </div>
 
                 <div className="flex justify-between">
-                  <Button type="button" variant="ghost" onClick={() => setEtapa(2)}><ChevronLeft size={16} /> Voltar</Button>
+                  <Button type="button" variant="ghost" onClick={() => setEtapa(3)}><ChevronLeft size={16} /> Voltar</Button>
                   <Button onClick={handleConfirm} loading={submitting} variant="secondary" size="lg">
                     <CheckCircle size={16} /> Confirmar cadastro
                   </Button>

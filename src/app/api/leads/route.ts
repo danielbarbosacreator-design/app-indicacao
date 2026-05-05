@@ -50,11 +50,15 @@ export async function POST(request: Request) {
         full_name: data.nome,
         email: data.email,
         phone: data.telefone,
-        vehicle_type: data.marca_veiculo, -- mapeando marca como tipo no exemplo
+        vehicle_type: data.marca_veiculo,
         vehicle_model: data.modelo_veiculo,
         vehicle_year: data.ano_veiculo,
         vehicle_plate: data.placa || null,
-        notes: `Estado: ${data.estado}, Cidade: ${data.cidade}`,
+        notes: `Estado: ${data.estado}, Cidade: ${data.cidade}${
+          body.servicos_adicionais?.length 
+            ? ` | Serviços: ${body.servicos_adicionais.join(', ')}` 
+            : ''
+        }`,
         status: 'lead_cadastrado'
       })
       .select()
